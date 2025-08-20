@@ -37,8 +37,8 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { openSignIn } = useClerk();
   const { user } = useUser();
+  const { openSignIn } = useClerk();
 
   useEffect(() => {
     if (location.pathname !== "/") {
