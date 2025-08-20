@@ -29,7 +29,6 @@ const Navbar = () => {
     { name: "Hotels", path: "/rooms" },
     { name: "Experience", path: "/experience" },
     { name: "Contact", path: "/contact" },
-    { name: "About", path: "/about" },
   ];
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -66,7 +65,7 @@ const Navbar = () => {
       
       {/* Logo */}
      <Link to={'/'}>
-      <h1 className="text-2xl font-bold font-serif">RaniHOTEL</h1>
+      <h1 className="text-2xl font-bold text-green-700 font-serif">RaniHOTEL</h1>
      </Link>
 
       {/* Desktop Nav */}
@@ -75,26 +74,29 @@ const Navbar = () => {
           <Link
             key={i}
             to={link.path}
-            className={`group flex flex-col gap-0.5 ${
+            className={`group flex flex-col gap-0.5 text-green-700 ${
               isScrolled ? "text-gray-700" : "text-[#000]"
             }`}
           >
             {link.name}
             <div
               className={`${
-                isScrolled ? "bg-gray-700" : "bg-yellow-400"
+                isScrolled ? "bg-gray-700" : "bg-green-600"
               } h-0.5 w-0 group-hover:w-full transition-all duration-300`}
             />
           </Link>
         ))}
-        <button
-          onClick={() => navigate("/owner")}
-          className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
-            isScrolled ? "text-black" : "text-[#000]"
-          } transition-all`}
-        >
-          Dashboard
-        </button>
+        {/* Only show Dashboard button if user is logged in */}
+        {user && (
+          <button
+            onClick={() => navigate("/owner")}
+            className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
+              isScrolled ? "text-black" : "text-[#000]"
+            } transition-all`}
+          >
+            Dashboard
+          </button>
+        )}
       </div>
 
       {/* Desktop Right */}
