@@ -2,27 +2,30 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { ConnectDB } from "./src/config/db.js";
-import { clerkMiddleware } from '@clerk/express'
-import clerkWebhooks from "./src/controllers/clerkWebhooks.js";
- 
-
+import { clerkMiddleware } from "@clerk/express";
+import clerkWebhookRoutes from "./src/routes/clerkWebhook.routes.js";
+import userRoutes from "./src/routes/user.routes.js";
 
 dotenv.config();
 const app = express();
+
 app.use(cors());
 
-// middleware 
-app.use('/api/clerk', clerkWebhooks);
+
+app.use("/api/clerk", clerkWebhookRoutes);
+
+
+app.use(express.json());
 app.use(clerkMiddleware());
 
-app.use('/', (req , res ) => res.send("API is working "))
+app.use("/api/user", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("server is running ✅ ...");
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   ConnectDB();
-  console.log(`server is running on ${PORT}`);
+  console.log(`server running on port ${PORT}`);
 });

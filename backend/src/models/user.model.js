@@ -2,9 +2,10 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    _id: {
+    clerkId: {
       type: String,
-      required: true, 
+      required: true,
+      unique: true,
     },
     fullname: {
       type: String,
@@ -24,7 +25,7 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    recentSearchedCities: [{ type: String, required: true }],
+    recentSearchedCities: [{ type: String }],
   },
   { timestamps: true }
 );
